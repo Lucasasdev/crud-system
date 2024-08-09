@@ -1,18 +1,44 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { api } from "@/services/api";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
-  const [cpf, setCpf] = useState("");
-  const [email, setEmail] = useState("");
+  const [taxNumber, setTaxNumber] = useState("");
+  const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleRegisterUser: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
+    e.preventDefault();
+    const data = {
+      name,
+      taxNumber,
+      mail,
+      phone,
+      password,
+    };
+
+    try {
+      const response = await api.post("/api/auth/register", data);
+
+      console.log(response.data);
+      console.log(response.status);
+    } catch (error) {
+      console.log("There's an error:", error);
+    }
+  };
+
   return (
     <div className="h-[100vh] w-full flex justify-center items-center">
-      <form className="max-w-[25rem] bg-secondary flex flex-col gap-4 p-4 rounded-sm w-full justify-center">
+      <form
+        onSubmit={handleRegisterUser}
+        className="max-w-[25rem] bg-secondary flex flex-col gap-4 p-4 rounded-sm w-full justify-center"
+      >
         <span className="font-semibold text-2xl m-5 text-center">
           Registrar
         </span>
@@ -27,20 +53,20 @@ const Register = () => {
         </div>
         <div>
           <Input
-            value={cpf}
+            value={taxNumber}
             type="text"
             required
             placeholder="CPF ou CNPJ"
-            onChange={(e) => setCpf(e.target.value)}
+            onChange={(e) => setTaxNumber(e.target.value)}
           />
         </div>
         <div>
           <Input
-            value={email}
-            type="text"
+            value={mail}
+            type="email"
             required
             placeholder="E-mail"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setMail(e.target.value)}
           />
         </div>
         <div>
