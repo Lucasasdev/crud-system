@@ -1,11 +1,10 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
   return (
     <>
-      <p className="m-2 text-red-500">Hello world!</p>
-      <Button className="m-2">start</Button>
+      <AppRouter />
     </>
   );
 }
