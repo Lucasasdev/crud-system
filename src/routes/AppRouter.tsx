@@ -1,7 +1,8 @@
+import Home from "@/pages/home";
 import Login from "@/pages/login";
 import Register from "@/pages/register";
-import { Home } from "lucide-react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateRouter from "./PrivateRouter";
 
 const AppRouter = () => {
   return (
@@ -9,7 +10,9 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<PrivateRouter />}>
+          <Route path="/home" element={<Home />} />
+        </Route>
       </Routes>
     </Router>
   );
