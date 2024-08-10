@@ -1,6 +1,7 @@
 import { api } from "@/services/api";
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 
 interface LoginType {
   taxNumber: string;
@@ -11,6 +12,7 @@ interface AuthContextType {
   user: string | null;
   signed: boolean;
   signIn: ({ taxNumber, password }: LoginType) => Promise<void>;
+  signOut: () => void;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -56,8 +58,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error(error);
     }
   };
+
+  const signOut = () => {
+    localStorage.clear();
+    setUser(null);
+    return <Navigate to={"/"} />;
+  };
+
   return (
-    <AuthContext.Provider value={{ user, signed: !!user, signIn }}>
+    <AuthContext.Provider value={{ user, signed: !!user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
