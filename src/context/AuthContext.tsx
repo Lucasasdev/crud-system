@@ -40,10 +40,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         password,
       });
 
-      console.log(response.status);
-      console.log(response);
-      alert(response);
-
       setUser(JSON.stringify(response.data));
 
       axios.defaults.headers.common[
@@ -56,7 +52,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       );
       localStorage.setItem("@Auth:user", JSON.stringify(response.data));
     } catch (error) {
-      alert(error);
+      alert("Houve um error ao fazer o login!");
       console.error(error);
     }
   };
