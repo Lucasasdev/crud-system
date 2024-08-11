@@ -1,10 +1,9 @@
-import useAuthContext from "@/hooks/useAuthContext";
 import { Button } from "@/components/ui/button";
 import { api } from "@/services/api";
 import { AxiosError } from "axios";
+import Header from "@/components/header/Header";
 
 const Home = () => {
-  const { signOut } = useAuthContext();
   const token = localStorage.getItem("@Auth:token");
 
   const handleClickProducts = async () => {
@@ -27,15 +26,11 @@ const Home = () => {
   return (
     <>
       <div className="flex flex-col gap-4">
+        <Header />
         <h1>Página de produtos</h1>
         <div className="flex gap-4">
           <div>
             <Button onClick={handleClickProducts}>Listar</Button>
-          </div>
-          <div>
-            <Button onClick={signOut} variant={"secondary"}>
-              Sair
-            </Button>
           </div>
         </div>
       </div>
