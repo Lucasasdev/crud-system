@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "https://interview.t-alpha.com.br",
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
