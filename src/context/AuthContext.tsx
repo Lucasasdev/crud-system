@@ -1,6 +1,5 @@
-import { api } from "@/services/api";
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { api } from "@/services/api";
 import { Navigate } from "react-router-dom";
 
 interface LoginType {
@@ -29,6 +28,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       if (storageUser && storageToken) {
         setUser(storageUser);
+
+        api.defaults.headers.common["Authorization"] = `Bearer ${storageToken}`;
       }
     };
 
@@ -44,14 +45,11 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
       setUser(JSON.stringify(response.data));
 
-      axios.defaults.headers.common[
+      api.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.data.token}`;
 
-      localStorage.setItem(
-        "@Auth:token",
-        JSON.stringify(response.data.data.token)
-      );
+      localStorage.setItem("@Auth:token", response.data.data.token);
       localStorage.setItem("@Auth:user", JSON.stringify(response.data));
     } catch (error) {
       alert("Houve um error ao fazer o login!");
