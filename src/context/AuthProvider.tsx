@@ -1,22 +1,12 @@
-import { createContext, useEffect, useState } from "react";
-import { api } from "@/services/api";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
+import { api } from "@/services/api";
+import { AuthContext } from "./AuthContext";
 
-interface LoginType {
+export interface LoginType {
   taxNumber: string;
   password: string;
 }
-
-interface AuthContextType {
-  user: string | null;
-  signed: boolean;
-  signIn: ({ taxNumber, password }: LoginType) => Promise<void>;
-  signOut: () => void;
-}
-
-export const AuthContext = createContext<AuthContextType | undefined>(
-  undefined
-);
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
