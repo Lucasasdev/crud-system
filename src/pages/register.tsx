@@ -34,10 +34,10 @@ const Register = () => {
   };
 
   return (
-    <div className="h-[100vh] w-full flex justify-center items-center">
+    <div className="h-[100vh] w-full flex justify-center items-center px-5">
       <form
         onSubmit={handleRegisterUser}
-        className="max-w-[25rem] bg-secondary flex flex-col gap-4 p-4 rounded-lg w-full justify-center"
+        className="max-w-[25rem] bg-secondary flex flex-col gap-4 p-5 rounded-lg w-full justify-center"
       >
         <span className="font-semibold text-2xl m-5 text-center">
           Registrar
@@ -98,13 +98,13 @@ const Register = () => {
           />
         </div>
         <div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full font-bold">
             Registrar
           </Button>
         </div>
-        <div className="flex gap-2 my-5">
+        <div className="flex gap-2 my-5 text-sm">
           <span>Já possui uma conta?</span>
-          <Link to={"/"} className="text-cyan-500">
+          <Link to={"/"} className="text-cyan-600 underline">
             Entrar
           </Link>
         </div>
