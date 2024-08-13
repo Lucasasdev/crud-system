@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { getProducts, ProductType } from "@/services/productServices";
 
-const ProductCard = () => {
+const ProductTable = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
 
   useEffect(() => {
@@ -35,6 +35,8 @@ const ProductCard = () => {
               <td>{product.stock}</td>
               <td className="flex gap-2 ">
                 <Button>edit</Button>
+              </td>
+              <td>
                 <Button>remove</Button>
               </td>
             </tr>
@@ -45,4 +47,4 @@ const ProductCard = () => {
   );
 };
 
-export default ProductCard;
+export default ProductTable;
