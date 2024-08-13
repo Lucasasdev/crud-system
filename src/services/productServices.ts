@@ -10,8 +10,13 @@ export interface ProductType {
 }
 
 export const getProducts = async () => {
+  const token = localStorage.getItem("@Auth:token");
   try {
-    const response = await api.get("/api/products/get-all-products");
+    const response = await api.get("/api/products/get-all-products", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data.data.products;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -26,15 +31,22 @@ export const createProduct = async ({
   price,
   stock,
 }: ProductType) => {
+  const token = localStorage.getItem("@Auth:token");
   try {
-    const response = await api.post(import.meta.env.VITE_CREATE_URL, {
-      name,
-      description,
-      price,
-      stock,
-    });
-
-    await getProducts();
+    const response = await api.post(
+      import.meta.env.VITE_CREATE_URL,
+      {
+        name,
+        description,
+        price,
+        stock,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
     alert("Produto criado com sucesso!");
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { api } from "@/services/api";
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 export interface LoginType {
   taxNumber: string;
@@ -42,8 +43,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem("@Auth:token", response.data.data.token);
       localStorage.setItem("@Auth:user", JSON.stringify(response.data));
     } catch (error) {
+      console.log(error);
+      toast.error("Houve um");
       alert("Houve um error ao fazer o login!");
-      console.error(error);
     }
   };
 
