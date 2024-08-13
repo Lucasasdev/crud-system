@@ -30,22 +30,26 @@ const Login = () => {
       <div className="h-[100vh] w-full  flex justify-center items-center">
         <form
           onSubmit={handleClickSubmit}
-          className="max-w-[25rem] bg-secondary flex flex-col gap-4 p-4 rounded-sm w-full"
+          className="max-w-[25rem] bg-secondary flex flex-col gap-4 p-4 rounded-lg w-full"
         >
           <span className="font-semibold text-2xl text-center m-5">Entrar</span>
           <div>
+            <label htmlFor="ftaxnumber">TaxNumber</label>
             <Input
               value={taxNumber}
               type="text"
+              id="ftaxnumber"
               required
               placeholder="CPF ou CNPJ"
               onChange={(e) => setTaxNumber(e.target.value)}
             />
           </div>
           <div>
+            <label htmlFor="fpassword">Password</label>
             <Input
               value={password}
               type="password"
+              id="fpassword"
               required
               placeholder="Senha do usuário"
               onChange={(e) => setPassword(e.target.value)}
