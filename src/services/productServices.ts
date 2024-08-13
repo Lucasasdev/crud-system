@@ -34,8 +34,11 @@ export const createProduct = async ({
       stock,
     });
 
-    console.log(response.status);
-    alert("Product created!");
+    await getProducts();
+
+    alert("Produto criado com sucesso!");
+
+    return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
       alert("Error ao criar produto");
