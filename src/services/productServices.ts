@@ -27,7 +27,7 @@ export const createProduct = async ({
   stock,
 }: ProductType) => {
   try {
-    const response = await api.post("/api/products/create-product", {
+    const response = await api.post(import.meta.env.VITE_CREATE_URL, {
       name,
       description,
       price,
@@ -35,6 +35,7 @@ export const createProduct = async ({
     });
 
     console.log(response.status);
+    alert("Product created!");
   } catch (error) {
     if (error instanceof AxiosError) {
       alert("Error ao criar produto");
