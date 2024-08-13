@@ -17,7 +17,7 @@ const ProductTable = () => {
 
   return (
     <div className="w-full flex justify-center p-5 border-collapse">
-      <table className="w-full max-w-[800px]">
+      <table className="w-full max-w-[800px] sm:flex flex-col">
         <thead>
           <tr>
             <th>ID</th>
