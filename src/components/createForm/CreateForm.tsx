@@ -29,7 +29,7 @@ const CreateForm = () => {
   };
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="w-full min-w-[250px] flex justify-center">
       <form
         onSubmit={handleCreateClick}
         className="bg-secondary flex flex-col m-5 p-4 gap-2 rounded-lg max-w-[800px] w-full"
@@ -66,7 +66,6 @@ const CreateForm = () => {
           <Input
             type="number"
             value={stock}
-            step="0.01"
             min={0}
             id="fstock"
             onChange={(e) => setStock(Number(e.target.value))}
