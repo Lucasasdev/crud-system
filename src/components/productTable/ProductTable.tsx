@@ -49,6 +49,12 @@ const ProductTable = () => {
     setUpdateStateId(-1);
   };
 
+  const handleDeleteClick = (id: number | undefined) => {
+    const newProduct = products.filter((product) => product.id !== id);
+
+    setProducts(newProduct);
+  };
+
   return (
     <div className="w-full flex justify-center p-5 border-collapse">
       <form onSubmit={handleSubmit} className="w-full max-w-[800px]">
@@ -84,7 +90,13 @@ const ProductTable = () => {
                     </Button>
                   </td>
                   <td>
-                    <Button variant="secondary">remove</Button>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      onClick={() => handleDeleteClick(product.id)}
+                    >
+                      remove
+                    </Button>
                   </td>
                 </tr>
               )
