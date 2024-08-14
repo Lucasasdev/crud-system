@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { getProducts, ProductType } from "@/services/productServices";
+import {
+  getProducts,
+  ProductType,
+  updateProduct,
+} from "@/services/productServices";
 import EditInput from "../editInput/EditInput";
 
 const ProductTable = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
+
+  const [inputName, setInputName] = useState("");
+  const [inputPrice, setInputPrice] = useState(0);
+  const [inputStock, setInputStock] = useState(0);
 
   const [updateStateId, setUpdateStateId] = useState<number | undefined>(-1);
 
@@ -20,6 +28,18 @@ const ProductTable = () => {
 
   const handleEditClick = (id: number | undefined) => {
     setUpdateStateId(id);
+  };
+
+  const editProduct = async () => {
+    const product = {
+      id: updateStateId,
+      name: inputName,
+      description: "",
+      price: inputPrice,
+      stock: inputStock,
+    };
+
+    await updateProduct(product);
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -39,14 +59,19 @@ const ProductTable = () => {
       (formElement.elements.namedItem("stock") as HTMLInputElement).value
     );
 
+    editProduct();
+
     const newProduct = products.map((product) =>
       product.id === updateStateId
         ? { ...product, name: inputName, price: inputPrice, stock: inputStock }
         : product
     );
 
+    setInputName(inputName);
+    setInputPrice(inputPrice);
+    setInputStock(inputStock);
+
     setProducts(newProduct);
-    setUpdateStateId(-1);
   };
 
   const handleDeleteClick = (id: number | undefined) => {
@@ -74,6 +99,7 @@ const ProductTable = () => {
                   product={product}
                   products={products}
                   setProducts={setProducts}
+                  editProduct={editProduct}
                 />
               ) : (
                 <tr key={product.id} className="text-center">

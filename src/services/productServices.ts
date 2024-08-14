@@ -58,3 +58,40 @@ export const createProduct = async ({
     }
   }
 };
+
+export const updateProduct = async ({
+  id,
+  name,
+  description,
+  price,
+  stock,
+}: ProductType) => {
+  const token = localStorage.getItem("@Auth:token");
+  try {
+    const response = await api.patch(
+      `/api/products/update-product/${id}`,
+      {
+        name,
+        description,
+        price,
+        stock,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Produto atualizado com sucesso!");
+
+    console.log(response.status);
+
+    return response.status;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      alert("Error ao atualizar o produto!");
+      console.error(error.response?.data);
+    }
+  }
+};

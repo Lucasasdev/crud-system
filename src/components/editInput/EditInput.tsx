@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 interface EditInputProps {
   product: ProductType;
   products: ProductType[];
+  editProduct: () => Promise<void>;
   setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
 }
 
@@ -74,7 +75,9 @@ const EditInput = ({ product, products, setProducts }: EditInputProps) => {
         />
       </td>
       <td>
-        <Button type="submit">Update</Button>
+        <Button type="submit" onClick={() => {}}>
+          Update
+        </Button>
       </td>
     </tr>
   );
