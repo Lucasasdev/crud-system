@@ -9,11 +9,35 @@ interface EditInputProps {
 }
 
 const EditInput = ({ product, products, setProducts }: EditInputProps) => {
-  const handleInput: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    const name = e.target.value;
+  const handleInputName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const inputName = e.target.value;
     const newProduct = products.map((currProduct) =>
       currProduct.id === product.id
-        ? { ...currProduct, name: name }
+        ? { ...currProduct, name: inputName }
+        : currProduct
+    );
+    setProducts(newProduct);
+  };
+
+  const handleInputPrice: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value;
+    const inputPrice = Number(value);
+
+    const newProduct = products.map((currProduct) =>
+      currProduct.id === product.id
+        ? { ...currProduct, price: inputPrice }
+        : currProduct
+    );
+    setProducts(newProduct);
+  };
+
+  const handleInputStock: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    const value = e.target.value;
+    const inputStock = Number(value);
+
+    const newProduct = products.map((currProduct) =>
+      currProduct.id === product.id
+        ? { ...currProduct, stock: inputStock }
         : currProduct
     );
     setProducts(newProduct);
@@ -27,7 +51,7 @@ const EditInput = ({ product, products, setProducts }: EditInputProps) => {
           type="text"
           name="name"
           value={product.name}
-          onChange={handleInput}
+          onChange={handleInputName}
         />
       </td>
       <td>
@@ -37,10 +61,17 @@ const EditInput = ({ product, products, setProducts }: EditInputProps) => {
           min={0}
           step="0.01"
           value={product.price}
+          onChange={handleInputPrice}
         />
       </td>
       <td>
-        <Input type="number" name="stock" min={0} value={product.stock} />
+        <Input
+          type="number"
+          name="stock"
+          min={0}
+          value={product.stock}
+          onChange={handleInputStock}
+        />
       </td>
       <td>
         <Button type="submit">Update</Button>

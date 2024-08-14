@@ -31,8 +31,18 @@ const ProductTable = () => {
       formElement.elements.namedItem("name") as HTMLInputElement
     ).value;
 
+    const inputPrice = Number(
+      (formElement.elements.namedItem("price") as HTMLInputElement).value
+    );
+
+    const inputStock = Number(
+      (formElement.elements.namedItem("stock") as HTMLInputElement).value
+    );
+
     const newProduct = products.map((product) =>
-      product.id === updateStateId ? { ...product, name: inputName } : product
+      product.id === updateStateId
+        ? { ...product, name: inputName, price: inputPrice, stock: inputStock }
+        : product
     );
 
     setProducts(newProduct);
