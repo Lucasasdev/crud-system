@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api } from "@/services/api";
+import { AxiosError } from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -10,6 +11,8 @@ const Register = () => {
   const [mail, setMail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  const [redirect, setRedirect] = useState(false);
 
   const handleRegisterUser: React.FormEventHandler<HTMLFormElement> = async (
     e
@@ -26,12 +29,22 @@ const Register = () => {
     try {
       const response = await api.post("/api/auth/register", data);
 
-      console.log(response.data);
-      console.log(response.status);
+      console.log(response?.status);
+
+      alert("Usuário registrado com sucesso!");
+
+      setRedirect(true);
     } catch (error) {
-      console.log("There's an error:", error);
+      if (error instanceof AxiosError) {
+        alert("Ocorreu um error ao registrar novo usuário.");
+        console.error(error.response?.data.message);
+      }
     }
   };
+
+  if (redirect) {
+    return <Navigate to={"/"} />;
+  }
 
   return (
     <div className="h-[100vh] w-full flex justify-center items-center p-5 mt-5 overflow-auto">
