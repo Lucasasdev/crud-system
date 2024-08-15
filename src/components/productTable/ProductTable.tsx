@@ -43,7 +43,7 @@ const ProductTable = () => {
     await updateProduct(product);
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     const formElement = e.target as HTMLFormElement;
@@ -60,7 +60,7 @@ const ProductTable = () => {
       (formElement.elements.namedItem("stock") as HTMLInputElement).value
     );
 
-    editProduct();
+    await editProduct();
 
     const newProduct = products.map((product) =>
       product.id === updateStateId
@@ -73,6 +73,8 @@ const ProductTable = () => {
     setInputStock(inputStock);
 
     setProducts(newProduct);
+
+    setUpdateStateId(-1);
   };
 
   const handleDeleteClick = async (id: number | undefined) => {
@@ -80,7 +82,7 @@ const ProductTable = () => {
   };
 
   return (
-    <div className="w-full flex justify-center p-5 border-collapse">
+    <div className="w-full max-h-[80vh] flex justify-center p-5 border-collapse overflow-y-auto">
       <form onSubmit={handleSubmit} className="w-full max-w-[800px]">
         <table className="w-full ">
           <thead>
@@ -93,7 +95,7 @@ const ProductTable = () => {
           </thead>
           <tbody>
             {products.map((product) =>
-              updateStateId === product.id ? (
+              updateStateId === product.id && updateStateId != -1 ? (
                 <EditInput
                   product={product}
                   products={products}
