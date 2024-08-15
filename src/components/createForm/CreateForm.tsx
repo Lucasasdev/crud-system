@@ -11,11 +11,9 @@ const CreateForm = () => {
 
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleCreateClick: React.FormEventHandler<HTMLFormElement> = async (
-    event
-  ) => {
-    event.preventDefault();
-
+  const handleCreateClick: React.FormEventHandler<
+    HTMLFormElement
+  > = async () => {
     const product = {
       name,
       description,
