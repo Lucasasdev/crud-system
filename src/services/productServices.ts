@@ -95,3 +95,25 @@ export const updateProduct = async ({
     }
   }
 };
+
+export const deleteProduct = async (id: number | undefined) => {
+  const token = localStorage.getItem("@Auth:token");
+  try {
+    const response = await api.delete(`/api/products/delete-product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    alert("Produto deletado!");
+
+    console.log(response.status);
+
+    return response.status;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      alert("Ocorreu um error ao deletar produto!");
+      console.error(error.response?.data);
+    }
+  }
+};

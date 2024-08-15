@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
+  deleteProduct,
   getProducts,
   ProductType,
   updateProduct,
@@ -74,10 +75,8 @@ const ProductTable = () => {
     setProducts(newProduct);
   };
 
-  const handleDeleteClick = (id: number | undefined) => {
-    const newProduct = products.filter((product) => product.id !== id);
-
-    setProducts(newProduct);
+  const handleDeleteClick = async (id: number | undefined) => {
+    await deleteProduct(id);
   };
 
   return (
