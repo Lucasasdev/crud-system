@@ -36,8 +36,8 @@ const Register = () => {
       setRedirect(true);
     } catch (error) {
       if (error instanceof AxiosError) {
-        alert("Ocorreu um error ao registrar novo usuário.");
-        console.error(error.response?.data.message);
+        alert("Error ao registrar novo usuário.");
+        console.error(error.response?.data);
       }
     }
   };
