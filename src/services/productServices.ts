@@ -12,7 +12,7 @@ export interface ProductType {
 export const getProducts = async () => {
   const token = localStorage.getItem("@Auth:token");
   try {
-    const response = await api.get("/api/products/get-all-products", {
+    const response = await api.get(import.meta.env.VITE_GET_ALL_URI, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -34,7 +34,7 @@ export const createProduct = async ({
   const token = localStorage.getItem("@Auth:token");
   try {
     const response = await api.post(
-      import.meta.env.VITE_CREATE_URL,
+      import.meta.env.VITE_CREATE_URI,
       {
         name,
         description,
@@ -69,7 +69,7 @@ export const updateProduct = async ({
   const token = localStorage.getItem("@Auth:token");
   try {
     const response = await api.patch(
-      `/api/products/update-product/${id}`,
+      `${import.meta.env.VITE_UPDATE_URI}${id}`,
       {
         name,
         description,
@@ -82,7 +82,6 @@ export const updateProduct = async ({
         },
       }
     );
-
     alert("Produto atualizado com sucesso!");
 
     console.log(response.status);
@@ -99,20 +98,19 @@ export const updateProduct = async ({
 export const deleteProduct = async (id: number | undefined) => {
   const token = localStorage.getItem("@Auth:token");
   try {
-    const response = await api.delete(`/api/products/delete-product/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    alert("Produto deletado!");
-
-    console.log(response.status);
-
+    const response = await api.delete(
+      `${import.meta.env.VITE_DELETE_URI}${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    alert("Produto excluído!");
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
-      alert("Ocorreu um error ao deletar produto!");
+      alert("Error ao excluir produto!");
       console.error(error.response?.data);
     }
   }
