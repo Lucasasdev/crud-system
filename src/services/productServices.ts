@@ -48,12 +48,12 @@ export const createProduct = async ({
       }
     );
 
-    alert("Produto criado com sucesso!");
+    alert("Product created with success!");
 
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
-      alert("Error ao criar produto");
+      alert("Error to create product.");
       console.log(error.response?.data);
     }
   }
@@ -82,14 +82,14 @@ export const updateProduct = async ({
         },
       }
     );
-    alert("Produto atualizado com sucesso!");
+    alert("Product updated!");
 
     console.log(response.status);
 
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
-      alert("Error ao atualizar o produto!");
+      alert("Error to update product!");
       console.error(error.response?.data);
     }
   }
