@@ -20,7 +20,7 @@ export const getProducts = async () => {
     return response.data.data.products;
   } catch (error) {
     if (error instanceof AxiosError) {
-      throw new Error(error.response?.request);
+      throw new Error(error.response?.data);
     }
   }
 };
