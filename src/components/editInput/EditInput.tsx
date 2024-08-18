@@ -1,15 +1,25 @@
-import { ProductType } from "@/services/productServices";
+import { ProductType, updateProduct } from "@/services/productServices";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useState } from "react";
 
 interface EditInputProps {
   product: ProductType;
   products: ProductType[];
-  editProduct: () => Promise<void>;
+  updateStateId: number | undefined;
   setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>;
 }
 
-const EditInput = ({ product, products, setProducts }: EditInputProps) => {
+const EditInput = ({
+  product,
+  products,
+  updateStateId,
+  setProducts,
+}: EditInputProps) => {
+  const [inputName, setInputName] = useState(product.name);
+  const [inputPrice, setInputPrice] = useState(product.price);
+  const [inputStock, setInputStock] = useState(product.stock);
+
   const handleInputName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const inputName = e.target.value;
     const newProduct = products.map((currProduct) =>
@@ -18,64 +28,95 @@ const EditInput = ({ product, products, setProducts }: EditInputProps) => {
         : currProduct
     );
     setProducts(newProduct);
+    setInputName(inputName);
   };
 
   const handleInputPrice: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value;
     const inputPrice = Number(value);
-
+    console.log(value);
     const newProduct = products.map((currProduct) =>
       currProduct.id === product.id
         ? { ...currProduct, price: inputPrice }
         : currProduct
     );
     setProducts(newProduct);
+    setInputPrice(inputPrice);
   };
 
   const handleInputStock: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     const value = e.target.value;
     const inputStock = Number(value);
-
+    setInputStock(inputStock);
     const newProduct = products.map((currProduct) =>
       currProduct.id === product.id
         ? { ...currProduct, stock: inputStock }
         : currProduct
     );
     setProducts(newProduct);
+    setInputStock(inputStock);
+  };
+
+  const handleButtonClick = async () => {
+    // Verifica se o nome é válido
+    if (inputName.trim() === "" || inputName.length < 3) {
+      alert("Name is mandatory and must have at least 3 characters.");
+      return; // Sai da função se a validação falhar
+    }
+
+    // Verifica se o preço é válido
+    if (inputPrice <= 0) {
+      alert("Price number must be a positive");
+      return; // Sai da função se a validação falhar
+    }
+
+    // Verifica se o estoque é válido
+    if (inputStock < 0) {
+      alert("Stock number must not be negative.");
+      return; // Sai da função se a validação falhar
+    }
+    const product = {
+      id: updateStateId,
+      name: inputName,
+      description: "",
+      price: inputPrice,
+      stock: inputStock,
+    };
+    await updateProduct(product);
   };
 
   return (
     <tr>
-      <td></td>
-      <td>
+      <td className="content-space"></td>
+      <td className="content-space">
         <Input
           type="text"
           name="name"
+          minLength={3}
           value={product.name}
           onChange={handleInputName}
         />
       </td>
-      <td>
+      <td className="content-space">
         <Input
-          type="number"
+          type="text"
           name="price"
-          min={0}
-          step="0.01"
+          min={1}
           value={product.price}
           onChange={handleInputPrice}
         />
       </td>
-      <td>
+      <td className="content-space">
         <Input
-          type="number"
+          type="text"
           name="stock"
-          min={0}
+          min={1}
           value={product.stock}
           onChange={handleInputStock}
         />
       </td>
-      <td>
-        <Button type="submit" onClick={() => {}}>
+      <td className="content-space">
+        <Button type="submit" onClick={handleButtonClick}>
           Update
         </Button>
       </td>

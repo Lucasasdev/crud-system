@@ -8,21 +8,30 @@ const CreateForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-
   const [isVisible, setIsVisible] = useState(false);
 
   const handleCreateClick: React.FormEventHandler<
     HTMLFormElement
   > = async () => {
+    if (name === "") {
+      alert("Please, fill out name field.");
+      return;
+    }
+    if (price <= 0) {
+      alert("The field price must have a positive number.");
+      return;
+    }
+    if (stock <= 0) {
+      alert("The field stock must have a positive number.");
+      return;
+    }
     const product = {
       name,
       description,
       price,
       stock,
     };
-
     await createProduct(product);
-
     setName("");
     setDescription("");
     setPrice(0);
@@ -34,11 +43,11 @@ const CreateForm = () => {
   };
 
   return (
-    <div className="w-full min-w-[250px] flex flex-col items-center">
+    <div className="w-full flex flex-col items-center gap-5 my-5">
       {isVisible && (
         <form
           onSubmit={handleCreateClick}
-          className="bg-secondary flex flex-col m-5 p-5 gap-2 rounded-lg max-w-[800px] w-full"
+          className="bg-secondary flex flex-col p-5 gap-2 rounded-lg max-w-[800px] w-full"
         >
           <div>
             <label htmlFor="fname">Name</label>
@@ -82,16 +91,16 @@ const CreateForm = () => {
             ></Input>
           </div>
           <div>
-            <Button type="submit" className="font-bold">
+            <Button type="submit" className="font-bold bg-green-500">
               Create
             </Button>
           </div>
         </form>
       )}
-      <div className="max-w-[800px] w-full">
+      <div className="max-w-[800px] w-full flex justify-end">
         <Button
           type="button"
-          className="font-bold m-5"
+          className="font-bold"
           onClick={handleAddProductClick}
         >
           Add product

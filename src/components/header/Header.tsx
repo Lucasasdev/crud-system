@@ -7,7 +7,7 @@ const Header = () => {
     <div className="w-full h-[100px] flex justify-between px-4 py-5 items-center bg-secondary">
       <div className="font-bold text-xl">Product Market</div>
       <nav>
-        <Button onClick={signOut} variant={"link"}>
+        <Button onClick={signOut} variant="link" className="hover:text-red-500">
           Sign out
         </Button>
       </nav>

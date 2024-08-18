@@ -47,9 +47,7 @@ export const createProduct = async ({
         },
       }
     );
-
     alert("Product created with success!");
-
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -83,9 +81,7 @@ export const updateProduct = async ({
       }
     );
     alert("Product updated!");
-
-    console.log(response.status);
-
+    await getProducts();
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -106,7 +102,7 @@ export const deleteProduct = async (id: number | undefined) => {
         },
       }
     );
-    alert("Produto excluído!");
+    await getProducts();
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {

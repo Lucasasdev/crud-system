@@ -8,7 +8,9 @@ const Home = () => {
       <div className="flex flex-col gap-4">
         <Header />
       </div>
-      <CreateForm />
+      <div className="mx-5">
+        <CreateForm />
+      </div>
       <ProductTable />
     </>
   );
