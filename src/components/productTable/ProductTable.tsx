@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import {
-  deleteProduct,
-  getProducts,
-  ProductType,
-} from "@/services/productServices";
+import { deleteProduct, getProducts } from "@/services/productServices";
 import EditInput from "../editInput/EditInput";
+import useProductContext from "@/hooks/useContext/useProductContext";
 
 const ProductTable = () => {
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const { products, setProducts } = useProductContext();
   const [updateStateId, setUpdateStateId] = useState<number | undefined>(-1);
 
   useEffect(() => {
-    const listProducts = async () => {
+    const fetchProducts = async () => {
       const response = await getProducts();
       setProducts(response);
     };
-    listProducts();
+    fetchProducts();
   }, []);
 
   const handleEditClick = async (id: number | undefined) => {

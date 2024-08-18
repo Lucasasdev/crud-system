@@ -58,22 +58,17 @@ const EditInput = ({
   };
 
   const handleButtonClick = async () => {
-    // Verifica se o nome é válido
     if (inputName.trim() === "" || inputName.length < 3) {
       alert("Name is mandatory and must have at least 3 characters.");
-      return; // Sai da função se a validação falhar
+      return;
     }
-
-    // Verifica se o preço é válido
     if (inputPrice <= 0) {
       alert("Price number must be a positive");
-      return; // Sai da função se a validação falhar
+      return;
     }
-
-    // Verifica se o estoque é válido
     if (inputStock < 0) {
       alert("Stock number must not be negative.");
-      return; // Sai da função se a validação falhar
+      return;
     }
     const product = {
       id: updateStateId,

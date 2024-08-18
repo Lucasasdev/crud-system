@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { createProduct } from "@/services/productServices";
+import useProductContext from "@/hooks/useContext/useProductContext";
 
 const CreateForm = () => {
   const [name, setName] = useState("");
@@ -10,9 +11,12 @@ const CreateForm = () => {
   const [stock, setStock] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleCreateClick: React.FormEventHandler<
-    HTMLFormElement
-  > = async () => {
+  const { listProducts } = useProductContext();
+
+  const handleCreateClick: React.FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
+    e.preventDefault();
     if (name === "") {
       alert("Please, fill out name field.");
       return;
@@ -21,7 +25,7 @@ const CreateForm = () => {
       alert("The field price must have a positive number.");
       return;
     }
-    if (stock <= 0) {
+    if (stock < 0) {
       alert("The field stock must have a positive number.");
       return;
     }
@@ -36,6 +40,8 @@ const CreateForm = () => {
     setDescription("");
     setPrice(0);
     setStock(0);
+
+    await listProducts();
   };
 
   const handleAddProductClick = () => {
