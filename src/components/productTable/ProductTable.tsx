@@ -38,7 +38,7 @@ const ProductTable = () => {
 
   return (
     <form onSubmit={handleSubmit} className="w-full flex justify-center">
-      <div className="w-[800px] overflow-x-auto">
+      <div className="w-full max-w-[800px] overflow-x-auto">
         <table className="w-full min-w-[800px]">
           <thead>
             <tr>
