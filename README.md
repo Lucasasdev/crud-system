@@ -1,5 +1,7 @@
 ## CRUD System
 
+Interface integrada a API com tela para register e login com autenticação possibilidando adicionar, atualizar remover e visualizar produtos.
+
 ## Instalação
 
 Siga os passos abaixo para instalar e rodar o projeto:
