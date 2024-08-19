@@ -42,6 +42,7 @@ const CreateForm = () => {
     setStock(0);
 
     await listProducts();
+    setIsVisible(false);
   };
 
   const handleAddProductClick = () => {
@@ -49,11 +50,11 @@ const CreateForm = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center gap-5 my-5">
+    <div className="w-full flex flex-col items-center gap-5 m-5">
       {isVisible && (
         <form
           onSubmit={handleCreateClick}
-          className="bg-secondary flex flex-col p-5 gap-2 rounded-lg max-w-[800px] w-full"
+          className="bg-secondary flex flex-col p-5 gap-4 rounded-lg max-w-[800px] w-full shadow-lg"
         >
           <div>
             <label htmlFor="fname">Name</label>

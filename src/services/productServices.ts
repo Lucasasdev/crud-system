@@ -102,11 +102,10 @@ export const deleteProduct = async (id: number | undefined) => {
         },
       }
     );
-    await getProducts();
     return response.status;
   } catch (error) {
     if (error instanceof AxiosError) {
-      alert("Error ao excluir produto!");
+      alert("Error to remove product!");
       console.error(error.response?.data);
     }
   }

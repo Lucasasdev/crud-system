@@ -3,6 +3,7 @@ import { Button } from "../ui/button";
 import { deleteProduct, getProducts } from "@/services/productServices";
 import EditInput from "../editInput/EditInput";
 import useProductContext from "@/hooks/useContext/useProductContext";
+import { AxiosError } from "axios";
 
 const ProductTable = () => {
   const { products, setProducts } = useProductContext();
@@ -14,7 +15,7 @@ const ProductTable = () => {
       setProducts(response);
     };
     fetchProducts();
-  }, []);
+  }, [setProducts]);
 
   const handleEditClick = async (id: number | undefined) => {
     setUpdateStateId(id);
@@ -27,12 +28,11 @@ const ProductTable = () => {
 
   const handleDeleteClick = async (id: number | undefined) => {
     try {
+      await deleteProduct(id);
       const updatedProducts = products.filter((product) => product.id !== id);
       setProducts(updatedProducts);
-      await deleteProduct(id);
     } catch (error) {
-      alert("Error to remove product");
-      console.error(error);
+      if (error instanceof AxiosError) alert(error.response?.data);
     }
   };
 
