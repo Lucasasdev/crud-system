@@ -1,6 +1,6 @@
 ## CRUD System
 
-Interface integrada a API com tela para register e login com autenticação possibilidando adicionar, atualizar remover e visualizar produtos.
+Interface integrada a API T-alpha com tela de register e login com autenticação possibilitando adicionar, atualizar remover e visualizar produtos.
 
 ## Instalação
 
